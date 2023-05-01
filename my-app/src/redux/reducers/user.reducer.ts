@@ -8,10 +8,7 @@ const initialState = {
   userDBCollectionId: '',
 };
 console.log("amirr")
-console.log("amirr")
-console.log("amirr")
-console.log("amirr")
-console.log("amirr")
+
 function userReducer(state = initialState, action: any) {
   switch (action.type) {
     case 'LOGIN':
