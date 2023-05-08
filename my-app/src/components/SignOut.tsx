@@ -10,7 +10,6 @@ export const SignOutComponent: React.FC = () => {
   const signOutWithGoogle = () => {
     auth.signOut()
     dispatch({ type: 'LOGOUT' });
-
   }
 
   return (

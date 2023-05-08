@@ -9,7 +9,8 @@ import { getUserProfile } from "../redux/selectors/user.selector";
 interface Props {
   userData: any;
 }
-export const UserLandingPage: React.FC<Props> = ({userData}) => {
+
+export const UserLandingPage: React.FC<Props> = ({ userData }) => {
   const userProfile = useSelector(getUserProfile);
   const dispatch = useDispatch();
 
