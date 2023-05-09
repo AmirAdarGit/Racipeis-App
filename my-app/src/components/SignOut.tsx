@@ -1,7 +1,7 @@
 import React from "react";
 import 'firebase/compat/auth';
-import { auth } from "../App";
 import { useDispatch } from "react-redux";
+import { auth } from "../firebase/firebase";
 
 
 export const SignOutComponent: React.FC = () => {

@@ -1,5 +1,5 @@
-import { firestore } from "../App";
 import { v4 as uuidv4 } from "uuid";
+import { firestore } from "../firebase/firebase";
 
 
 export const registerUser = async (userData: any) => {
@@ -24,7 +24,6 @@ export const registerUser = async (userData: any) => {
       RecipesDBCollectionId,
       userDBCollectionId: userData.uid,
     }
-    debugger
   }
   return userMetaData
 }
@@ -42,3 +41,6 @@ export const getUserDataFromDBIfExist = async (userData: any): Promise<any> => {
       return undefined
     });
 }
+
+
+
