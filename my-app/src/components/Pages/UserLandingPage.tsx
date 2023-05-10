@@ -27,13 +27,39 @@ export const UserLandingPage: React.FC<Props> = ({userData}) => {
     setShowDialog(!showDialog);
   };
 
+
   const handleSaveRecipe = async (recipe: Recipe) => {
-    const imageUrl = await uploadImageToStorage(recipe.image)
-    delete recipe.image;
-    setRecipes([...recipes, {...recipe, imageUrl: imageUrl}]); // get all the recipes from DB
-    await insertNewRecipesToDB({...recipe, userDBCollectionId: userProfile.userDBCollectionId, imageUrl: imageUrl})
+    console.log("aaaaa", recipe)
+    let imagesByUrls: any = [];
+    debugger
+    if (recipe.images){
+      const promises: any = [];
+      recipe.images.forEach((imageFile: any) => {
+        promises.push(saveImageOnStorage(imageFile));
+      });
+
+      Promise.all(promises).then((results) => {
+        debugger
+        // do something with the results
+        imagesByUrls.push(results)
+        console.log(results);
+      }).catch((error) => {
+        console.error(error);
+      });
+    }
+    console.log(imagesByUrls);
+
+    delete recipe.images;
+    setRecipes([...recipes, {...recipe, imagesByUrls: imagesByUrls}]); // get all the recipes from DB
     setShowDialog(false);
   };
+
+  async function saveImageOnStorage(image: File) {
+    return await uploadImageToStorage(image);
+  }
+
+
+
 
   useEffect(() => {
     if (!userProfile.isLogIn && userData) {
@@ -45,13 +71,14 @@ export const UserLandingPage: React.FC<Props> = ({userData}) => {
   }, [userData])
 
   return (<>
-      <div>
-        <LogoImgStyled  src={ logo } alt="Logo"/>
-        <CoverImgStyled src={ cover } alt="Logo"/>
-        <button onClick={handleAddRecipe}>Add Recipe</button>
-        {showDialog && <AddNewRecipes onSave={handleSaveRecipe} />}
+      {/*<LogoImgStyled  src={ logo } alt="Logo"/>*/ }
+      {/*<CoverImgStyled src={ cover } alt="Logo"/>*/ }
+      <div>Some title - </div>
+      <div style={{display: "flex"}}>
 
       </div>
+      <button onClick={ handleAddRecipe }>Add Recipe</button>
+      { showDialog && <AddNewRecipes onSave={ handleSaveRecipe } setShowDialog={ setShowDialog }/> }
       <SignOutComponent/>
     </>
   )

@@ -23,9 +23,14 @@ export const getAllTheRecipesOfTheUser = async (userId: string) => {
           console.log('No documents found');
         } else {
           // Loop through the matching documents and log their data
+          let AllRecopies: any = []
           querySnapshot.forEach((doc) => {
-            console.log(doc.id, ' => ', doc.data());
+            AllRecopies.push(doc.data())
           });
+          console.log("---------------")
+          console.log(AllRecopies);
+          console.log("---------------")
+
         }
       })
       .catch((error) => {

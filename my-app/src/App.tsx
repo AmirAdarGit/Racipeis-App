@@ -33,9 +33,6 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-
-
-  console.log("user", user)
   return (
     <div className="App">
       {user ? <Routes userData={user}/> : <SignInComponent/>}
