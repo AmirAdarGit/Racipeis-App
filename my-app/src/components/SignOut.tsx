@@ -4,12 +4,19 @@ import { useDispatch } from "react-redux";
 import { auth } from "../firebase/firebase";
 
 
-export const SignOutComponent: React.FC = () => {
+interface Props {
+  setUser: (user: any) => void
+}
+
+export const SignOutComponent: React.FC<Props> = ({setUser}) => {
   const dispatch = useDispatch();
 
   const signOutWithGoogle = () => {
     auth.signOut()
-    dispatch({ type: 'LOGOUT' });
+    dispatch({ type: 'LOGOUT' }); // clean the user redux state.
+    dispatch({ type: 'REMOVE_RECIPES_FROM_STATE' }); // clean the recipes redux state.
+    setUser('') // clear the google user start so the SignInComponent component will render.
+    localStorage.removeItem('user'); // clear the local storage.
   }
 
   return (

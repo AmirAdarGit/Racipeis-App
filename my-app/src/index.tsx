@@ -3,20 +3,19 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { rootReducer } from './redux/reducers/store';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { persistor, store } from './redux/reducers/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const store: any = createStore(rootReducer, composeWithDevTools());
-
 root.render(
   <Provider store={ store }>
-    <App/>
+    <PersistGate loading={ null } persistor={ persistor }>
+      <App/>
+    </PersistGate>
   </Provider>
 );
 

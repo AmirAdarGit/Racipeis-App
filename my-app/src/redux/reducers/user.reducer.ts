@@ -27,6 +27,7 @@ function userReducer(state = initialState, action: any) {
         RecipesDBCollectionId: '',
         userDBCollectionId:  ''
       };
+
     default:
       return state;
   }

@@ -18,6 +18,7 @@ export const SignInComponent: React.FC = () => {
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider()
     auth.signInWithPopup(provider)
+
   }
 
 
