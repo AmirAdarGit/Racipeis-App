@@ -1,15 +1,14 @@
 // Consumer
 import { SQSClient, SendMessageCommand } from "@aws-sdk/client-sqs";
+import { logger } from "../app";
+import AWS from "aws-sdk";
 
 
 const awsConfig = {
-  regin: "us-east-1",
-  credential: {
-    accessKeyId: process.env.accessKeyId,
-    secretAccessKey: process.env.secretAccessKey,
-  }
+  accessKeyId: process.env.accessKeyId,
+  secretAccessKey: process.env.secretAccessKey,
+  region: "us-east-1",
 };
-
 const sqsClient = new SQSClient(awsConfig)
 
 // Producer
@@ -22,12 +21,9 @@ export const SQSProducer = async (Data: any, queueUrl: string | undefined, queue
         OrderId: {DataType: "String", StringValue: "4421x"},
       },
     })
-
-    const result = await sqsClient.send(command)
-    console.log(result)
-
-    console.log(`[SQS - ${queueJob}] produce successfully`);
+    await sqsClient.send(command)
+    logger.info(`[SQS Producer] - ${queueJob} produce successfully`);
   } catch (error) {
-    console.error(`[SQS - ${queueJob}] Error sending recipe:', error`);
+    logger.error(`[SQS Producer] - ${queueJob} Error sending recipe:', ${error}`)
   }
 };

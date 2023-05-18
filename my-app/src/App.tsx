@@ -10,7 +10,6 @@ import { getAllTheRecipesOfTheUser } from "./functions/recipesDB.Queries";
 import { useDispatch, useSelector } from "react-redux";
 import { getIsFetchRecipes, getRecipesCards } from "./redux/selectors/recipesCards.selector";
 
-
 function App() {
 
   const [user, setUser] = useState<User | null>(
@@ -28,10 +27,6 @@ function App() {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("--------------------")
-        console.log(user)
-        console.log("--------------------")
-
         // User is signed in, store the user data in local storage
         localStorage.setItem('user', JSON.stringify(user));
         setUser(user);

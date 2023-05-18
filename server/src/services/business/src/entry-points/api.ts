@@ -5,7 +5,6 @@ import { IUser, IUserRecipes } from "../interfaces";
 import { SQSProducer } from "../sqs/SQSSendMQ";
 import Recipe from "../domain/Recipe";
 
-export const USER_PATH = "/user";
 export default class API_Controller {
 
   async getUserById(req: express.Request, res: express.Response) {

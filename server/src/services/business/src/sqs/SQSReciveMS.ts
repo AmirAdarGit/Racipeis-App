@@ -1,16 +1,19 @@
 import AWS, { SQS } from 'aws-sdk';
+import { logger } from "../app";
 
 const awsConfig = {
   accessKeyId: process.env.accessKeyId,
   secretAccessKey: process.env.secretAccessKey,
-  region: "us-east-1"
+  region: "us-east-1",
 };
 AWS.config.update(awsConfig);
 
 export const sqs = new SQS();
 
 
-// Function to receive and process messages from the SQS queue
+
+// Consumer
+
 export const SQSConsumer = async (queueUrl: string, queueJob: string) => {
   const params: SQS.ReceiveMessageRequest = {
     QueueUrl: queueUrl,
@@ -20,17 +23,13 @@ export const SQSConsumer = async (queueUrl: string, queueJob: string) => {
 
   try {
     const data: SQS.ReceiveMessageResult = await sqs.receiveMessage(params).promise();
-
     if (data.Messages && data.Messages.length > 0 && data.Messages[0]) {
-      const message = data.Messages[0];
-      console.log(message)
-      if (message.Body) {
-        console.log(`[SQS - ${queueJob}] pull successfully`);
-        return message;
-      }
+      logger.info(`[SQS Consumer] - get message from the queue for the queueJob: ${queueJob}`)
+      const message: SQS.Message[] = data.Messages;
+      return message;
     }
   } catch (error) {
-    console.error('Error receiving messages:', error);
+    logger.error(`[SQS Consumer]- ${queueJob} Error sending recipe:', ${error}`)
   }
 };
 
