@@ -29,6 +29,7 @@ export const registerUser = async (userData: any) => {
 }
 
 export const getUserDataFromDBIfExist = async (userData: any): Promise<any> => {
+  // TODO: move to mongodb collection
   return await firestore.collection('Users').doc(`${userData.uid}`).get()
     .then((doc) => {
       if (doc.exists){

@@ -23,13 +23,15 @@ function App() {
 
   const dispatch = useDispatch();
   const isFetchedRecipes = useSelector(getIsFetchRecipes);
-  console.log("isFetchedRecipes", isFetchedRecipes);
   useEffect(() => {
-    console.log(user)
-    const auth = getAuth();
 
+    const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
+        console.log("--------------------")
+        console.log(user)
+        console.log("--------------------")
+
         // User is signed in, store the user data in local storage
         localStorage.setItem('user', JSON.stringify(user));
         setUser(user);

@@ -1,11 +1,10 @@
+import { User } from "../../utils/interfaces";
 
 
-const initialState = {
+const initialState: User = {
   name: '',
   email: '',
   isLogIn: false,
-  RecipesDBCollectionId: '',
-  userDBCollectionId: '',
 };
 function userReducer(state = initialState, action: any) {
   switch (action.type) {
@@ -15,8 +14,6 @@ function userReducer(state = initialState, action: any) {
         name: action.payload.displayName,
         email: action.payload.email,
         isLogIn: true,
-        RecipesDBCollectionId: action.payload.RecipesDBCollectionId,
-        userDBCollectionId:  action.payload.userDBCollectionId
       };
     case 'LOGOUT':
       return {
@@ -24,8 +21,6 @@ function userReducer(state = initialState, action: any) {
         name: '',
         email: '',
         isLogIn: false,
-        RecipesDBCollectionId: '',
-        userDBCollectionId:  ''
       };
 
     default:

@@ -25,7 +25,6 @@ export const UserLandingPage: React.FC<Props> = ({userData, setUser}) => {
   const userProfile = useSelector(getUserProfile);
   const allTheRecipes = useSelector(getRecipesCards);
 
-  console.log(allTheRecipes);
   const [recipes, setRecipes] = useState<Recipe[]>(allTheRecipes);
   const [showDialog, setShowDialog] = useState(false);
 
@@ -63,7 +62,6 @@ useEffect(() => {
   }, [userData])
 
 
-  console.log("allTheRecipes", recipes);
   return (<>
       {/*<LogoImgStyled  src={ logo } alt="Logo"/>*/ }
       {/*<CoverImgStyled src={ cover } alt="Logo"/>*/ }
