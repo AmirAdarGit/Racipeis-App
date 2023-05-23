@@ -12,16 +12,9 @@ import { getIsFetchRecipes, getRecipesCards } from "./redux/selectors/recipesCar
 
 function App() {
 
-  const [user, setUser] = useState<User | null>(
-    // JSON.parse(localStorage.getItem('user') || 'null')
-  );
-
-  useEffect(() => {
-
-  })
+  const [user, setUser] = useState<User | null>(null);
 
   const dispatch = useDispatch();
-  const isFetchedRecipes = useSelector(getIsFetchRecipes);
   useEffect(() => {
 
     const auth = getAuth();
@@ -30,11 +23,6 @@ function App() {
         // User is signed in, store the user data in local storage
         localStorage.setItem('user', JSON.stringify(user));
         setUser(user);
-          if (!isFetchedRecipes) {
-            getAllTheRecipesOfTheUser(user.uid).then((recipesFromDB) => {
-              dispatch({ type: 'SET_ALL_THE_RECIPES_FROM_DB', payload:  recipesFromDB});
-            })
-          }
       } else {
         // User is signed out,  the user data from local storage
         localStorage.removeItem('user');

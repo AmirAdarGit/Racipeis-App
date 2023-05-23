@@ -6,8 +6,7 @@ import db from './db/db-connection';
 
 import API_Controller from "./entry-points/api";
 import SQS from "./sqs/qsq";
-import { Logger } from "./logger/logger";
-
+import { Logger } from './logger/src';
 
 dotenv.config();
 const app = express();
@@ -27,36 +26,48 @@ export const logger = Logger.getInstance();
 export const USER_PATH = "/user";
 export const RECIPES_PATH = "/recipe";
 
-router.get(`${USER_PATH}/getById`, async (req: express.Request, res: express.Response) => {
+router.get(`${USER_PATH}/getUserByAuthId`, async (req: express.Request, res: express.Response) => {
   try {
-    console.log("[USER] - API - getUserById");
+    logger.info("[USER] - API - getUserById");
     const ApiController = new API_Controller()
-    const response = await ApiController.getUserById(req, res)
-    res.json({ response: response }).status(200)
+    const response = await ApiController.getUserByAuthId(req, res);
+    res.json(response).status(200)
   } catch (e: any) {
-    logger.error("Internal Server Error - /getUserById")
+    logger.error("Internal S erver Error - /getUserById")
     res.json({ error: `Internal Server Error: ${ e.message }`}).status(500);
   }
 });
 
 router.post(`${USER_PATH}/create`, async (req: express.Request, res: express.Response) => {
   try {
-    console.log("[USER] - API - createNewUser");
+    logger.info("[USER] - API - createNewUser");
     const ApiController = new API_Controller()
     const response = await ApiController.createNewUser(req, res)
-    res.json({ newUser: response }).status(200)
+    res.json(response).status(200)
   } catch (e: any) {
     logger.error("Internal Server Error - /createNewUser")
     res.json({ error: `Internal Server Error: ${ e.message }`}).status(500);
   }
 });
 
-router.post(`${RECIPES_PATH}/create`, async (req: express.Request, res: express.Response) => {
+router.post(`${RECIPES_PATH}/createNewRecipe`, async (req: express.Request, res: express.Response) => {
   try {
-    console.log("[USER] - API - createNewRecipe");
+    logger.info("[USER] - API - createNewRecipe");
     const apiController = new API_Controller()
     const response = await apiController.createNewRecipe(req, res)
-    res.json({ newRecipe: response }).status(200)
+    res.json(response).status(200)
+  } catch (e: any) {
+    logger.error("Internal Server Error - /createNewRecipe")
+    res.json({ error: `Internal Server Error: ${ e.message }`}).status(500);
+  }
+});
+
+router.get(`${RECIPES_PATH}/getAllRecipesById`, async (req: express.Request, res: express.Response) => {
+  try {
+    logger.info("[USER] - API - getAllRecipesById");
+    const apiController = new API_Controller()
+    const response = await apiController.getAllRecipesById(req, res)
+    res.json(response).status(200)
   } catch (e: any) {
     logger.error("Internal Server Error - /createNewRecipe")
     res.json({ error: `Internal Server Error: ${ e.message }`}).status(500);

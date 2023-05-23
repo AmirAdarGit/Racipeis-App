@@ -6,9 +6,8 @@ import { ObjectId } from 'mongodb';
 export default class UserCollectionDBManager {
 
 
-  async getById(id: string): Promise<UserCollectionModel | null> {
-      const ConvertToObjectId = ObjectId.createFromHexString(id);
-      const user = await UserCollection.findOne({ _id:  ConvertToObjectId});
+  async getByUserAuthId(id: string): Promise<UserCollectionModel | null> {
+      const user = await UserCollection.findOne({ userAuthId:  id});
       return user || null;
   }
   async create(newUser: IUser): Promise<UserCollectionModel> {

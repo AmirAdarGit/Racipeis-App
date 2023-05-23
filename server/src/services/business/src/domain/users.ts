@@ -7,8 +7,8 @@ export default class Users {
 
 
 
-  async getUserById(id: string) {
-    return await this.userDBManager.getById(id);
+  async getUserByAuthId(id: string) {
+    return await this.userDBManager.getByUserAuthId(id);
   }
 
   async createUser(user: IUser) {

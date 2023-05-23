@@ -5,6 +5,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  userAuthId: {
+    type: String,
+    require: true
+  },
   email: {
     type: String,
     required: true
@@ -17,6 +21,7 @@ const userSchema = new mongoose.Schema({
 
 export interface UserCollectionModel extends mongoose.Document {
   name: string,
+  userAuthId: string
   email: string,
   isLogIn: boolean,
 }

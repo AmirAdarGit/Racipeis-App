@@ -1,46 +1,43 @@
 import { v4 as uuidv4 } from "uuid";
 import { firestore } from "../firebase/firebase";
+import { MyResponseData } from "../utils/interfaces";
+import { domMax } from "framer-motion";
+import axios from "axios";
+import { getAllRecipesFromDB } from "./recipesDB.Queries";
 
-
-export const registerUser = async (userData: any) => {
+export const registerUserAndGetAllRecipes = async (userData: any) => {
   let userMetaData = await getUserDataFromDBIfExist(userData);
-  if (!userMetaData){
-    const RecipesDBCollectionId = uuidv4()
-    firestore.collection("Users").doc(`${userData.uid}`).set({
+  debugger
+  if (userMetaData === null) {
+    const createdUser = await setNewUserToDB({
       name: userData.displayName,
+      userAuthId: userData.uid,
       email: userData.email,
-      RecipesDBCollectionId,
-      userDBCollectionId: userData.uid
-    }, { merge: true })
-      .then(() => {
-        console.log("Document written for:", userData.displayName);
-      })
-      .catch((error) => {
-        console.error("Error adding document: ", error);
-      });
-    userMetaData = {
-      name: userData.displayName,
-      email: userData.email,
-      RecipesDBCollectionId,
-      userDBCollectionId: userData.uid,
-    }
+      isLogIn: true
+    })
+    return { userMetaData: createdUser };
   }
-  return userMetaData
+  // Get all the recipes from the db.
+  const allRecipesFromDB = await getAllRecipesFromDB(userMetaData._id)
+  return { userMetaData: userMetaData, allRecipesFromDB: allRecipesFromDB }
 }
 
-export const getUserDataFromDBIfExist = async (userData: any): Promise<any> => {
-  // TODO: move to mongodb collection
-  return await firestore.collection('Users').doc(`${userData.uid}`).get()
-    .then((doc) => {
-      if (doc.exists){
-        return doc.data()
-      }
-      else return false
-    })
-    .catch((error) => {
-      console.error('Error getting document:', error);
-      return undefined
-    });
+export const setNewUserToDB = async (userData: any): Promise<any> => {
+  try {
+    return await axios.post(`http://localhost:4000/user/create`,{...userData});
+  } catch (e: any) {
+    console.log("error", e)
+  }
+}
+
+export const getUserDataFromDBIfExist = async (userAuthData: any): Promise<any> => {
+  try {
+    const res = await axios.get(`http://localhost:4000/user/getUserByAuthId?userAuthId=${ userAuthData.uid }`); //TODO: add also users without google authe
+    debugger
+    return res.data;
+  } catch (e: any) {
+    console.log("error", e)
+  }
 }
 
 

@@ -1,20 +1,38 @@
 import { firestore } from "../firebase/firebase";
 import { uploadImageToStorage } from "./imageStorageUpload.Query";
+import axios from "axios";
+import {  IUserRecipes } from "../utils/interfaces";
 
-export const insertNewRecipesToDB = async (recipe: any) => {
+
+
+
+export const getAllRecipesFromDB = async (userId: string): Promise<any> => {
+  try {
+    const res = await axios.get(`http://localhost:4000/recipe/getAllRecipesById?userId=${userId}`);
+    debugger
+    return res.data;
+  } catch (e: any) {
+    console.log("error", e)
+  }
+}
+
+
+export const insertNewRecipesToDB = async (recipe: IUserRecipes) => {
   if (recipe){
-    firestore.collection('Recipes').add(recipe)
-      .then((docRef) => {
-        console.log('Recipe added with ID:', docRef.id);
-      })
-      .catch((error) => {
-        console.error('Error adding recipe:', error);
-      });
+    try {
+      debugger
+      const res = await axios.post(`http://localhost:4000/recipe/createNewRecipe`,{...recipe});
+      debugger
+      return res.data;
+    } catch (e: any) {
+      console.log("error", e)
+    }
   }
 }
 
 
 export const getAllTheRecipesOfTheUser = async (userId: string) => {
+  debugger
   let AllRecopies: any = [];
   if (!userId) return
 

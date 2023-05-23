@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SignOutComponent from "../SignOut";
 
-import { registerUser } from "../../functions/registerDB.Queries";
+import { registerUserAndGetAllRecipes } from "../../functions/registerDB.Queries";
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserProfile } from "../../redux/selectors/user.selector";
 import logo from '../../images/recipe-book.png';
@@ -12,8 +12,9 @@ import { insertNewImagesToDB, insertNewRecipesToDB } from "../../functions/recip
 import { uploadImageToStorage } from "../../functions/imageStorageUpload.Query";
 import { getIsFetchRecipes, getRecipesCards } from "../../redux/selectors/recipesCards.selector";
 import { RecipesList } from "../Recipes/RecipesList";
-
-
+import { IUserRecipes } from "../../utils/interfaces";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 interface Props {
   userData: any;
   setUser: (user: any) => void
@@ -36,27 +37,34 @@ useEffect(() => {
   setRecipes(allTheRecipes)
 },[allTheRecipes])
 
+  console.log("userProfile", userProfile);
+
   const handleSaveRecipe = async (recipe: Recipe) => {
     let imagesByUrls: Array<string> = []
     if (recipe.images) {
       imagesByUrls = await insertNewImagesToDB(recipe)
-      console.log(imagesByUrls)
     }
     delete recipe.images;
-    const recipeWithUrlImages = {...recipe, imagesByUrls: imagesByUrls, userId: userProfile.userDBCollectionId}
-    await insertNewRecipesToDB(recipeWithUrlImages)
-    dispatch({type: 'SET_RECIPE', payload: recipeWithUrlImages});
-
-    setRecipes([...recipes, {...recipe, imagesByUrls: imagesByUrls}]); // get all the recipes from DB
-    setShowDialog(false);
+    const recipeWithUrlImages: IUserRecipes = {...recipe, imagesByUrls: imagesByUrls, userId: userProfile.userDBID}
+    try {
+      await insertNewRecipesToDB(recipeWithUrlImages)
+      dispatch({type: 'SET_RECIPE', payload: recipeWithUrlImages});
+      setRecipes([...recipes, {...recipe, imagesByUrls: imagesByUrls}]); // get all the recipes from DB
+    } catch (e: any) {
+      console.log("cannot create new recipe", e)
+      toast.error("Cannot Create New Recipe Now...");
+    }
   };
 
 
   useEffect(() => {
     if (!userProfile.isLogIn && userData) {
-      registerUser(userData)
-        .then((userMetaData) => {
-          dispatch({type: 'LOGIN', payload: userMetaData})
+      registerUserAndGetAllRecipes(userData)
+        .then((returnData) => {
+          dispatch({type: 'LOGIN', payload: returnData.userMetaData})
+          if (returnData.hasOwnProperty('allRecipesFromDB')){
+            dispatch({type: 'SET_ALL_THE_RECIPES_FROM_DB', payload: returnData.allRecipesFromDB})
+          }
         })
     }
   }, [userData])

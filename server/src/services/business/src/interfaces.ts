@@ -1,5 +1,5 @@
 export interface IUser {
-  userId?: string,
+  userAuthId?: string,
   name: string,
   email: string,
   isLogIn: boolean,
@@ -13,6 +13,6 @@ export interface IUserRecipes {
   notes?: string,
   timeToMake?: string,
   servingsNumber?: string,
-  images?: Array<string>,
+  imagesByUrls?: Array<string>,
   isPrivet?: boolean
 };

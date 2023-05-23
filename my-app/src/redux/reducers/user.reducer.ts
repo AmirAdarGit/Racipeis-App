@@ -3,15 +3,20 @@ import { User } from "../../utils/interfaces";
 
 const initialState: User = {
   name: '',
+  userAuthId: '',
+  userDBID: '',
   email: '',
   isLogIn: false,
 };
 function userReducer(state = initialState, action: any) {
   switch (action.type) {
     case 'LOGIN':
+      debugger
       return {
         ...state,
-        name: action.payload.displayName,
+        name: action.payload.name,
+        userAuthId: action.payload.userAuthId,
+        userDBID: action.payload._id,
         email: action.payload.email,
         isLogIn: true,
       };
@@ -19,6 +24,7 @@ function userReducer(state = initialState, action: any) {
       return {
         ...state,
         name: '',
+        userAuthId: '',
         email: '',
         isLogIn: false,
       };

@@ -7,37 +7,37 @@ import Recipe from "../domain/Recipe";
 
 export default class API_Controller {
 
-  async getUserById(req: express.Request, res: express.Response) {
+  async getUserByAuthId(req: express.Request, res: express.Response) {
     try {
-      const { userId } = req.query;
+      const {userAuthId} = req.query;
 
-      if (!userId) {
+      if (!userAuthId) {
         throw new Error("params are missing");
       }
       const userDomain = new Users();
-      const newUser = await userDomain.getUserById(userId as string);
+      const newUser = await userDomain.getUserByAuthId(userAuthId as string);
       if (!newUser) {
-        return "user not found"
-      } else {
-        return newUser;
+        return null
       }
+      return newUser;
     } catch (error) {
       console.log("Error from server: ", error);
-      throw new Error(`Error from server: , ${error}`)
+      throw new Error(`Error from server: , ${ error }`)
     }
   }
 
   async createNewUser(req: express.Request, res: express.Response) {
     try {
 
-      const { name, email, isLogIn } = req.body;
+      const {name, userAuthId, email, isLogIn} = req.body;
 
-      if (!name || !email || !isLogIn) {
+      if (!name || !userAuthId || !email || !isLogIn) {
         throw new Error("params are missing");
       }
 
       const user = {
         name,
+        userAuthId,
         email,
         isLogIn
       }
@@ -46,13 +46,23 @@ export default class API_Controller {
       return await userDomain.createUser(user);
     } catch (error) {
       console.log("Error from server: ", error);
-      throw new Error(`Error from server: , ${error}`)    }
+      throw new Error(`Error from server: , ${ error }`)
+    }
   }
 
   async createNewRecipe(req: express.Request, res: express.Response) {
     try {
-
-      const { userId, recipeName, ingredients, procedure, notes, timeToMake, servingsNumber, images, isPrivet } = req.body;
+      const {
+        userId,
+        recipeName,
+        ingredients,
+        procedure,
+        notes,
+        timeToMake,
+        servingsNumber,
+        imagesByUrls,
+        isPrivet
+      } = req.body;
 
       if (!userId || !recipeName || !ingredients || !procedure) {
         throw new Error("params are missing");
@@ -66,18 +76,38 @@ export default class API_Controller {
         notes,
         timeToMake,
         servingsNumber,
-        images,
+        imagesByUrls,
         isPrivet
       }
 
       // send the recipe to SQS
-      await SQSProducer(newRecipe, process.env.recipesQueueName, "Create New Recipe Queue");
-      // const recipeDomain = new Recipe();
-      // return await recipeDomain.createRecipe(newRecipe);
-      return "OK";
+      // await SQSProducer(newRecipe, process.env.recipesQueueName, "Create New Recipe Queue");
+      const recipeDomain = new Recipe();
+      return await recipeDomain.createRecipe(newRecipe);
     } catch (error) {
       console.log("Error from server: ", error);
-      throw new Error(`Error from server: , ${error}`)    }
+      throw new Error(`Error from server: , ${ error }`)
+    }
   }
+
+  async getAllRecipesById(req: express.Request, res: express.Response) {
+    try {
+      const { userId } = req.query;
+
+      if (!userId) {
+        throw new Error("params are missing");
+      }
+      const recipeDomain = new Recipe();
+      const allRecipes = await recipeDomain.getAllRecipesById(userId as string);
+      if (!allRecipes) {
+        return null
+      }
+      return allRecipes;
+    } catch (error) {
+      console.log("Error from server: ", error);
+      throw new Error(`Error from server: , ${ error }`)
+    }
+  }
+
 
 }

@@ -1,4 +1,3 @@
-import { logger } from "../app";
 
 enum LogLevel {
   Error = '\x1b[31mError\x1b[0m',
@@ -6,7 +5,7 @@ enum LogLevel {
   Info = '\x1b[32mInfo\x1b[0m',
 }
 
-export class Logger {
+class Logger {
   private static instance: Logger;
 
   private constructor() {
@@ -48,6 +47,9 @@ export class Logger {
   }
 }
 
+
+
+export default Logger;
 // logger.error('An error occurred.');
 // logger.warning('A warning message.');
 // logger.info('An informational message.');
