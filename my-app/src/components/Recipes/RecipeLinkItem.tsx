@@ -12,7 +12,6 @@ export const RecipeLinkItem: React.FC<Props> = ({recipe}) => {
   const handleClick = () => {
     navigate('/recipePage',{ state: { recipe } })
   };
-  console.log("sssss",recipe);
   return (
     <div style={ {display: "flex", width: "50%"} } onClick={handleClick}>
       {recipe.imagesByUrls ? <ImageStyled src={ recipe.imagesByUrls[0] }></ImageStyled> : <Loader/>}

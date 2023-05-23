@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { SignInComponent } from "./components/SignIn";
 import Routes from "./components/Routers/Routers";
 import { getAuth, onAuthStateChanged, User } from "@firebase/auth";
-import { getAllTheRecipesOfTheUser } from "./functions/recipesDB.Queries";
-import { useDispatch, useSelector } from "react-redux";
-import { getIsFetchRecipes, getRecipesCards } from "./redux/selectors/recipesCards.selector";
+import { useDispatch } from "react-redux";
 
 function App() {
 

@@ -48,6 +48,8 @@ export const AddNewRecipes: React.FC<Props> = ({onSave, setShowDialog}) => {
     onSave(recipe);
   };
 
+  const isDisabled = !recipeName || ingredients.length === 0 || procedure.length === 0;
+
 
   return (
     <WrapperDialogStyled>
@@ -94,7 +96,7 @@ export const AddNewRecipes: React.FC<Props> = ({onSave, setShowDialog}) => {
             <input type="checkbox"  onChange={ (e) => setIsPrivet(!isPrivet) }/>
           </label>
         </RecipesInputsStyled>
-        <button onClick={ handleSave }>Done</button>
+        <button onClick={ handleSave } disabled={isDisabled}>Done</button>
       </div>
     </WrapperDialogStyled>
   )

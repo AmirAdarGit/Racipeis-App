@@ -49,7 +49,9 @@ useEffect(() => {
     try {
       await insertNewRecipesToDB(recipeWithUrlImages)
       dispatch({type: 'SET_RECIPE', payload: recipeWithUrlImages});
-      setRecipes([...recipes, {...recipe, imagesByUrls: imagesByUrls}]); // get all the recipes from DB
+      setRecipes([...recipes, {...recipe, imagesByUrls: imagesByUrls}]);
+      setShowDialog(false)
+      toast.success("New Recipe Created Successfully");
     } catch (e: any) {
       console.log("cannot create new recipe", e)
       toast.error("Cannot Create New Recipe Now...");
