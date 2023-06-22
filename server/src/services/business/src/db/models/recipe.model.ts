@@ -11,11 +11,11 @@ const recipeSchema = new mongoose.Schema({
     required: true
   },
   ingredients: {
-    type: Array<String>,
+    type: [String],
     required: true
   },
   procedure: {
-    type: Array<String>,
+    type: [String],
     required: true
   },
   notes: {
@@ -30,8 +30,8 @@ const recipeSchema = new mongoose.Schema({
     type: String,
     required: false
   },
-  images: {
-    type: Array<String>,
+  imagesByUrls: {
+    type: [String],
     required: false
   },
   isPrivet: {
