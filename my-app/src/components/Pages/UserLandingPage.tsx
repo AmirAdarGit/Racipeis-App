@@ -4,7 +4,7 @@ import { registerUserAndGetAllRecipes } from "../../functions/registerDB.Queries
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserProfile } from "../../redux/selectors/user.selector";
 import AddNewRecipes, { Recipe } from "../Recipes/AddNewRecipes";
-import { insertNewImagesToDB, insertNewRecipesToDB } from "../../functions/recipesDB.Queries";
+import { insertNewRecipesToDB, sendImageByImageToS3 } from "../../functions/recipesDB.Queries";
 import { getRecipesCards } from "../../redux/selectors/recipesCards.selector";
 import { RecipesList } from "../Recipes/RecipesList";
 import { IUserRecipes } from "../../utils/interfaces";
@@ -31,9 +31,7 @@ export const UserLandingPage: React.FC<Props> = ({userData, setUser}) => {
   const handleSaveRecipe = async (recipe: Recipe) => {
     let imagesByUrls: Array<string> = []
     if (recipe.images) {
-      //TODO: handle multiple images
-      const imageUrl = await insertNewImagesToDB(recipe.images[0])
-      imagesByUrls.push(imageUrl)
+        imagesByUrls = await sendImageByImageToS3(recipe.images);
     }
     delete recipe.images;
     const recipeWithUrlImages: IUserRecipes = {...recipe, imagesByUrls: imagesByUrls, userId: userProfile.userDBID}

@@ -86,7 +86,6 @@ router.post('/uploadImage', upload.single('image'), async (req: express.Request,
   try {
     logger.info("[USER] - API - uploadImage");
     const file = req.file;
-    console.log(file)
     const response = await uploadFile(file);
     if (response) {
       res.send({imagePath: response.Location})

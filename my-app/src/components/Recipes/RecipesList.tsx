@@ -7,8 +7,6 @@ interface Props {
 
 export const RecipesList: React.FC<Props> = ({recipes}) => {
 
-  console.log("recipes",recipes);
-
   return (
     <div style={ {display: "flex", flexWrap: "wrap"} }>
       { recipes && recipes.map((recipe: any, index: number) => {
