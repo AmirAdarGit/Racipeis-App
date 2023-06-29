@@ -1,6 +1,4 @@
 import styled from "@emotion/styled";
-import { DEVICE } from "../utils/constants";
-import React from "react";
 
 
 export const VideoElement = styled.video`
@@ -11,14 +9,11 @@ export const VideoElement = styled.video`
 
 export const ImageTitle = styled.div`
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
   color: white;
   font-size: 60px;
   font-family: Lucida Sans;
-  display: flex;
-  flex-direction: column;
 `;
 
 export const ImageTwoLines = styled.div`

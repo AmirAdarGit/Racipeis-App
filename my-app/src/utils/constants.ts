@@ -9,3 +9,17 @@ const SCREEN_MAX_SIZE = {
 export const DEVICE = {
   mobileL: `(max-width: ${SCREEN_MAX_SIZE.mobileL})`,
 };
+
+export enum PagesRoutes {
+  Home = 'Home',
+  RECIPES_CATALOG = '/',
+  ABOUT = '/About',
+  MY_LINKS = '/myLinks',
+}
+
+export enum Pages {
+  Home = 'Home',
+  RECIPES_CATALOG = 'Recipes Catalog',
+  ABOUT = 'About',
+  MY_LINKS = 'My Links',
+}

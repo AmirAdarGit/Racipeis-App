@@ -31,7 +31,7 @@ export const sendImageByImageToS3 = async (images: File[]) => {
   try {
     return await Promise.all(imagePromises);
   } catch (error) {
-    console.log('Error processing images', error);
+    console.log('Error processing assets', error);
     return [];
   }
 };

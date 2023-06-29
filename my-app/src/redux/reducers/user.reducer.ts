@@ -6,6 +6,7 @@ const initialState: User = {
   userAuthId: '',
   userDBID: '',
   email: '',
+  photoURL: '',
   isLogIn: false,
 };
 function userReducer(state = initialState, action: any) {
@@ -17,6 +18,17 @@ function userReducer(state = initialState, action: any) {
         userAuthId: action.payload.userAuthId,
         userDBID: action.payload._id,
         email: action.payload.email,
+        photoURL: action.payload.photoURL,
+        isLogIn: true,
+      };
+    case 'SIGNUP':
+      return {
+        ...state,
+        name: action.payload.data.name,
+        userAuthId: action.payload.data.userAuthId,
+        userDBID: action.payload.data._id,
+        email: action.payload.data.email,
+        photoURL: action.payload.data.photoURL,
         isLogIn: true,
       };
     case 'LOGOUT':
@@ -24,7 +36,9 @@ function userReducer(state = initialState, action: any) {
         ...state,
         name: '',
         userAuthId: '',
+        userDBID: '',
         email: '',
+        photoURL: '',
         isLogIn: false,
       };
 

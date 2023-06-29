@@ -13,6 +13,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  photoURL: {
+    type: String,
+    required: false
+  },
   isLogIn: {
     type: Boolean,
     required: true
@@ -23,6 +27,7 @@ export interface UserCollectionModel extends mongoose.Document {
   name: string,
   userAuthId: string
   email: string,
+  photoURL: string,
   isLogIn: boolean,
 }
 

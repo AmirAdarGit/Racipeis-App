@@ -1,8 +1,6 @@
 "use strict";
 import express from "express";
 import Users from "../domain/users";
-import { IUser, IUserRecipes } from "../interfaces";
-import { SQSProducer } from "../sqs/SQSSendMQ";
 import Recipe from "../domain/Recipe";
 
 export default class API_Controller {
@@ -29,7 +27,7 @@ export default class API_Controller {
   async createNewUser(req: express.Request, res: express.Response) {
     try {
 
-      const {name, userAuthId, email, isLogIn} = req.body;
+      const {name, userAuthId, email, isLogIn, photoURL} = req.body;
 
       if (!name || !userAuthId || !email || !isLogIn) {
         throw new Error("params are missing");
@@ -39,6 +37,7 @@ export default class API_Controller {
         name,
         userAuthId,
         email,
+        photoURL,
         isLogIn
       }
       const userDomain = new Users();

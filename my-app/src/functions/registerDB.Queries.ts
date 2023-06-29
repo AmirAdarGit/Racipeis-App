@@ -9,13 +9,14 @@ export const registerUserAndGetAllRecipes = async (userData: any) => {
       name: userData.displayName,
       userAuthId: userData.uid,
       email: userData.email,
+      photoURL: userData.photoURL,
       isLogIn: true
     })
-    return { userMetaData: createdUser };
+    return { userMetaData: createdUser, isNewUser: true };
   }
   // Get all the recipes from the db.
   const allRecipesFromDB = await getAllRecipesFromDB(userMetaData._id)
-  return { userMetaData: userMetaData, allRecipesFromDB: allRecipesFromDB }
+  return { userMetaData: userMetaData, allRecipesFromDB: allRecipesFromDB, isNewUser: false }
 }
 
 export const setNewUserToDB = async (userData: any): Promise<any> => {

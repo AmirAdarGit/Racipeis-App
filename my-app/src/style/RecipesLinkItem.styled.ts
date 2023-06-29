@@ -5,6 +5,7 @@ import { DEVICE } from "../utils/constants";
 export const ImageStyled = styled.img`
   width: 300px;
   height: 300px;
+  border-radius: 50%;
 `;
 
 export const RecipeName = styled.div`
@@ -30,6 +31,23 @@ export const Loader = styled.div`
     }
   }
 `;
+
+
+export const RecipesListWrapperStyled = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  padding: 0 16px;
+`;
+
+export const RecipeLinkItemWrapperStyled = styled.div`
+  display: flex;
+  width: 50%;
+  padding: 8px 0;
+`;
+
+
+
 
 
 

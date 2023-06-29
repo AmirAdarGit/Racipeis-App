@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageStyled, Loader, RecipeName } from "../../style/RecipesLinkItem.styled";
+import { ImageStyled, Loader, RecipeLinkItemWrapperStyled, RecipeName } from "../../style/RecipesLinkItem.styled";
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
@@ -13,10 +13,12 @@ export const RecipeLinkItem: React.FC<Props> = ({recipe}) => {
     navigate('/recipePage',{ state: { recipe } })
   };
   return (
-    <div style={ {display: "flex", width: "50%"} } onClick={handleClick}>
+    <RecipeLinkItemWrapperStyled onClick={handleClick}>
       {recipe.imagesByUrls ? <ImageStyled src={ recipe.imagesByUrls[0] }></ImageStyled> : <Loader/>}
-      <RecipeName>{ recipe.recipeName }</RecipeName>
-    </div>
+      <RecipeName>
+        { recipe.recipeName }
+      </RecipeName>
+    </RecipeLinkItemWrapperStyled>
   )
 }
 

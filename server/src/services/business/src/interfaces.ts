@@ -2,6 +2,7 @@ export interface IUser {
   userAuthId?: string,
   name: string,
   email: string,
+  photoURL?: string,
   isLogIn: boolean,
 };
 

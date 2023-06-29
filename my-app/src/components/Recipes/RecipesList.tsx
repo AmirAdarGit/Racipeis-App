@@ -1,5 +1,6 @@
 import React from "react";
 import RecipeLinkItem from "./RecipeLinkItem";
+import { RecipesListWrapperStyled } from "../../style/RecipesLinkItem.styled";
 
 interface Props {
   recipes: any
@@ -8,15 +9,13 @@ interface Props {
 export const RecipesList: React.FC<Props> = ({recipes}) => {
 
   return (
-    <div style={ {display: "flex", flexWrap: "wrap"} }>
+    <RecipesListWrapperStyled>
       { recipes && recipes.map((recipe: any, index: number) => {
-
         return (
             <RecipeLinkItem key={ index } recipe={ recipe } />
           )
-      })
-      }
-    </div>
+      })}
+    </RecipesListWrapperStyled>
   )
 }
 

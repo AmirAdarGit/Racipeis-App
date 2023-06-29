@@ -3,6 +3,7 @@ export interface User {
   userDBID?: string,
   name: string,
   email: string,
+  photoURL: string,
   isLogIn: boolean,
 };
 
@@ -23,3 +24,9 @@ export interface IUserRecipes {
   imagesByUrls?: Array<string>,
   isPrivet?: boolean
 };
+
+export interface LinkBoxProps {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}
