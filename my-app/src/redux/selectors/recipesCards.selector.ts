@@ -1,5 +1,5 @@
 export function getRecipesCards(state: any) {
-  return state.recipesCards.userRecipes;
+  return state.recipesCards;
 }
 
 export function getIsFetchRecipes(state: any) {

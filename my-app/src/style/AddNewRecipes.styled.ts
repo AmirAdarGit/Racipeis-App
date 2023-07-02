@@ -9,11 +9,17 @@ export const RecipesInputsStyled = styled.div`
   justify-content: center;
   align-items: center;
   color: black;
-`;
+  max-width: 590px;
+  align-self: center;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.3);
+` ;
 
 
 export const PopupLayOut = styled.div`
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: 1;
   background-color: gray;
@@ -22,7 +28,7 @@ export const PopupLayOut = styled.div`
 
 export const PopupContainer = styled.div`
   position: fixed;
-  inset: 75px;
+  inset: 102px 315px 115px 315px;
   z-index: 2;
   border-radius: 16px;
   background-color: white;
@@ -50,7 +56,6 @@ const fadeAnimation = keyframes`
 export const PopupContent = styled.div`
   display: flex;
   flex-direction: column;
-
 `;
 
 export const HeaderPopup = styled.div`
@@ -71,6 +76,14 @@ export const CloseButtonStyled = styled.button`
   }
 `;
 
+export const RemoveLineButtonStyled = styled(CloseButtonStyled)`
+  width: 20px;
+  height: 20px;
+  margin-left: 6px;
+`;
+
+
+
 export const TitleStyled = styled.div`
   color: black;
   font-size: 30px;
@@ -85,9 +98,10 @@ export const Divider = styled.div`
 `;export const UploadImageWrapperStyled = styled.div`
   display: flex;
   height: 44px;
+  width: 100%;
+  cursor: pointer;
   justify-content: center;
   align-items: center;
-  width: 586px;
   border-radius: 8px;
   background-color: pink;
 `;

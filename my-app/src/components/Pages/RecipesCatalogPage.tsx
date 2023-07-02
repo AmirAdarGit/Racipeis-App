@@ -22,10 +22,8 @@ export const RecipesCatalog: React.FC<Props> = ({userData, setUser}) => {
 
   const dispatch = useDispatch();
   const userProfile = useSelector(getUserProfile);
-  const allTheRecipes = useSelector(getRecipesCards);
-
-
-
+  const recipesCards = useSelector(getRecipesCards);
+  const allTheRecipes = recipesCards.userRecipes;
 
   const handleSaveRecipe = async (recipe: Recipe) => {
     let imagesByUrls: Array<string> = []
@@ -34,8 +32,10 @@ export const RecipesCatalog: React.FC<Props> = ({userData, setUser}) => {
     }
     delete recipe.images;
     const recipeWithUrlImages: IUserRecipes = {...recipe, imagesByUrls: imagesByUrls, userId: userProfile.userDBID}
+
     try {
       await insertNewRecipesToDB(recipeWithUrlImages)
+      // TODO: think: sould i save the time stemp also in state?
       dispatch({type: 'SET_RECIPE', payload: recipeWithUrlImages});
       toast.success("New Recipe Created Successfully");
     } catch (e: any) {

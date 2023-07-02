@@ -38,7 +38,7 @@ const recipeSchema = new mongoose.Schema({
     type: Boolean,
     required: false
   },
-});
+},{timestamps: true});
 
 
 export interface RecipeCollectionModel extends mongoose.Document {
