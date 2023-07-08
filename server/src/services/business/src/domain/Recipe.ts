@@ -1,17 +1,24 @@
 
-import { IUserRecipes } from "../interfaces";
+import { IRecipe } from "../interfaces";
 import RecipeCollectionDBManager from "../db/recipeCollectionDBManager";
 
 export default class Recipe {
   private recipeDBManager = new RecipeCollectionDBManager();
 
 
-  async createRecipe(user: IUserRecipes) {
-    return await this.recipeDBManager.create(user);
+  async createRecipe(recipe: IRecipe) {
+    return await this.recipeDBManager.create(recipe);
+  }
+  async incrementInteractionRecipeCount(recipeId: string) {
+    return await this.recipeDBManager.incrementInteractionRecipeCount(recipeId);
   }
 
-  async getAllRecipesById(userId: string) {
-    return await this.recipeDBManager.getAll(userId);
+  async getUserRecipes(userId: string, currentPage: any, pageSize: any) {
+    return await this.recipeDBManager.getUserRecipes(userId, currentPage, pageSize);
+  }
+
+  async getPopularPublicRecipesByPagination(currentPage: any, pageSize: any) {
+    return await this.recipeDBManager.getPopularPublicRecipesByPagination(currentPage, pageSize);
   }
 
 }

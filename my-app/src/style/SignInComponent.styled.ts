@@ -25,20 +25,17 @@ export const ImageTwoLines = styled.div`
 `;
 export const InfoWrapper = styled.div`
   display: flex;
-  bottom: 0;
-  //top: -60px;
-  
 `;
 export const InfoLeft = styled.div`
   width: 50%;
   height: 600px;
-  background-color: red;
 `;
 
 export const InfoRight = styled.div`
   width: 50%;
   height: 600px;
   background-color: aquamarine;
+  overflow: auto;
 `;
 
 export const ButtonStyled = styled.button`

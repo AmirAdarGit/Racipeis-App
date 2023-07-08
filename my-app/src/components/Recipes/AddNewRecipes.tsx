@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import 'firebase/compat/auth';
 import {
   CloseButtonStyled,
   PopupContainer,
@@ -191,7 +190,7 @@ export const AddNewRecipesComponent: React.FC<Props> = ({onSave, setShowAddNewRe
               onChange={ (e) => setRecipeName(e.target.value) }
             />
             <div style={ {display: "flex", height: "220px", width: "100%", justifyContent: "space-between"} }>
-              <div style={ {display: "flex", flexDirection: "column"} }>
+              <div style={ {display: "flex", flexDirection: "column", flex: "1"} }>
                 <div style={ {display: "flex", alignItems: "center"} }>
                   <TextField
                     required
@@ -216,7 +215,7 @@ export const AddNewRecipesComponent: React.FC<Props> = ({onSave, setShowAddNewRe
 
                 </ul>
               </div>
-              <div style={ {display: "flex", flexDirection: "column"} }>
+              <div style={ {display: "flex", flexDirection: "column", flex: "1"} }>
                 <div style={ {display: "flex", alignItems: "center"} }>
                   <TextField
                     required

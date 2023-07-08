@@ -14,7 +14,11 @@ export const RecipeLinkItem: React.FC<Props> = ({recipe}) => {
   };
   return (
     <RecipeLinkItemWrapperStyled onClick={handleClick}>
-      {recipe.imagesByUrls ? <ImageStyled src={ recipe.imagesByUrls[0] }></ImageStyled> : <Loader/>}
+      {recipe.imagesByUrls ?
+        <div style={{height: "300px", width: "300px"}}>
+          <ImageStyled src={ recipe.imagesByUrls[0] }></ImageStyled>
+          </div> :
+        <Loader/>}
       <RecipeName>
         { recipe.recipeName }
       </RecipeName>

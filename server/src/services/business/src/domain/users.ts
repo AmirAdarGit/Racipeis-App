@@ -14,6 +14,9 @@ export default class Users {
   async createUser(user: IUser) {
     return await this.userDBManager.create(user);
   }
+  async updateUserIsLogIn(userAuthId: string, isLogIn: boolean) {
+    return await this.userDBManager.updateUserIsLogIn(userAuthId, isLogIn);
+  }
 
 
 

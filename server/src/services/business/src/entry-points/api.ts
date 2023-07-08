@@ -49,6 +49,23 @@ export default class API_Controller {
     }
   }
 
+  async isUserActivate(req: express.Request, res: express.Response) {
+    try {
+
+      const {userAuthId, isLogIn} = req.body;
+
+      if (!userAuthId || isLogIn) {
+        throw new Error("params are missing");
+      }
+      const userDomain = new Users();
+
+      return await userDomain.updateUserIsLogIn(userAuthId, isLogIn);
+    } catch (error) {
+      console.log("Error from server: ", error);
+      throw new Error(`Error from server: , ${ error }`)
+    }
+  }
+
   async createNewRecipe(req: express.Request, res: express.Response) {
     try {
       const {
@@ -89,19 +106,39 @@ export default class API_Controller {
     }
   }
 
-  async getAllRecipesById(req: express.Request, res: express.Response) {
+  async incrementInteractionRecipeCount(req: express.Request, res: express.Response) {
     try {
-      const { userId } = req.query;
+      const { recipeId } = req.body;
 
-      if (!userId) {
+      if (!recipeId) {
         throw new Error("params are missing");
       }
       const recipeDomain = new Recipe();
-      const allRecipes = await recipeDomain.getAllRecipesById(userId as string);
-      if (!allRecipes) {
+      return await recipeDomain.incrementInteractionRecipeCount(recipeId);
+    } catch (error) {
+      console.log("Error from server: ", error);
+      throw new Error(`Error from server: , ${ error }`)
+    }
+  }
+
+  async getRecipes(req: express.Request, res: express.Response) {
+    try {
+      const { userId, currentPage, pageSize } = req.query;
+
+      //gat the most popular public recipes
+      const recipeDomain = new Recipe();
+      let RecipesToReturn;
+      if (!userId) {
+        RecipesToReturn = await recipeDomain.getPopularPublicRecipesByPagination(currentPage, pageSize);
+
+      } else {
+        RecipesToReturn = await recipeDomain.getUserRecipes(userId as string, currentPage, pageSize);
+      }
+
+      if (!RecipesToReturn) {
         return null
       }
-      return allRecipes;
+      return RecipesToReturn;
     } catch (error) {
       console.log("Error from server: ", error);
       throw new Error(`Error from server: , ${ error }`)

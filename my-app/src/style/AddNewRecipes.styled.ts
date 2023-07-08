@@ -97,6 +97,7 @@ export const Divider = styled.div`
   margin-bottom: 10px;
 `;export const UploadImageWrapperStyled = styled.div`
   display: flex;
+  gap: 8px;
   height: 44px;
   width: 100%;
   cursor: pointer;

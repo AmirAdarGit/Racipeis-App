@@ -2,18 +2,19 @@
 
 const initialState = {
   userRecipes: [{
+    _id: '',
     recipeName: '',
-    ingredients: Array<string>,
-    procedure: Array<string>,
+    ingredients: [],
+    procedure: [],
     notes: '',
-    timeToMake: String,
-    servingsNumber: String,
-    images: Array<string>,
-    isPrivet: Boolean
+    timeToMake: 0,
+    servingsNumber: 0,
+    images: [],
+    isPrivet: false
   }],
   isFetchRecipes: false
 };
-function userReducer(state = initialState, action: any) {
+function recipesCardsReducer(state = initialState, action: any) {
   switch (action.type) {
     case 'SET_ALL_THE_RECIPES_FROM_DB':
       return {
@@ -37,4 +38,4 @@ function userReducer(state = initialState, action: any) {
   }
 }
 
-export default userReducer;
+export default recipesCardsReducer;

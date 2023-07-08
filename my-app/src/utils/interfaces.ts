@@ -13,7 +13,8 @@ export interface MyResponseData {
   data: any;
 }
 
-export interface IUserRecipes {
+export interface IRecipe {
+  _id: string,
   userId: string,
   recipeName: string,
   ingredients: Array<string>,

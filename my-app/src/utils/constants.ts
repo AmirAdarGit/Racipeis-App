@@ -12,7 +12,7 @@ export const DEVICE = {
 
 export enum PagesRoutes {
   Home = 'Home',
-  RECIPES_CATALOG = '/',
+  RECIPES_CATALOG = '/myRecipesCatalog',
   ABOUT = '/About',
   MY_LINKS = '/myLinks',
 }

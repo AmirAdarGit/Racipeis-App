@@ -1,12 +1,12 @@
 export interface IUser {
-  userAuthId?: string,
-  name: string,
-  email: string,
+  userAuthId: string,
+  name?: string,
+  email?: string,
   photoURL?: string,
-  isLogIn: boolean,
+  isLogIn?: boolean,
 };
 
-export interface IUserRecipes {
+export interface IRecipe {
   userId: string,
   recipeName: string,
   ingredients: Array<string>,
@@ -15,5 +15,6 @@ export interface IUserRecipes {
   timeToMake?: string,
   servingsNumber?: string,
   imagesByUrls?: Array<string>,
-  isPrivet?: boolean
+  isPrivet?: boolean,
+  InteractionRecipeCount?: number
 };

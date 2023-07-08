@@ -34,10 +34,14 @@ const recipeSchema = new mongoose.Schema({
     type: [String],
     required: false
   },
-  isPrivet: {
+  isPrivate: {
     type: Boolean,
     required: false
   },
+  interactionRecipeCount: {
+    type: Number,
+    default: 0
+  }
 },{timestamps: true});
 
 

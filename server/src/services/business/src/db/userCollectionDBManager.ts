@@ -7,18 +7,23 @@ export default class UserCollectionDBManager {
 
 
   async getByUserAuthId(id: string): Promise<UserCollectionModel | null> {
-      const user = await UserCollection.findOne({ userAuthId:  id});
+      let user = await UserCollection.findOne({ userAuthId:  id});
+    if (user) {
+      await UserCollection.updateOne({ userAuthId: id }, { $set: { isLogIn: true } });
+    }
       return user || null;
   }
   async create(newUser: IUser): Promise<UserCollectionModel> {
     return await UserCollection.create(newUser);
   }
-  //
-  // async updateById(id: string, campaignCollection: CampaignCollectionData): Promise<CampaignCollectionModel> {
-  //   return await CampaignCollections.findOneAndUpdate({ _id: id }, { $set: campaignCollection }, { new: true });
-  // }
-  //
-  // async deleteById(id: string) {
-  //   return await CampaignCollections.deleteOne({ _id: id });
-  // }
+
+  async updateUserIsLogIn(userAuthId: string, isLogIn: boolean): Promise<UserCollectionModel | null> {
+
+    const user =  await UserCollection.findOneAndUpdate(
+      { userAuthId: userAuthId },
+      { $set: { isLogIn: isLogIn } },
+    );
+    return user || null
+  }
+
 }

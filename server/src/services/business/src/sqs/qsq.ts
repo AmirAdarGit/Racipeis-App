@@ -3,7 +3,7 @@ import AWS from 'aws-sdk';
 import { SQSConsumer } from "./SQSReciveMS";
 import Recipe from "../domain/Recipe";
 import { deleteMessageById } from "./SQSDeleteMS";
-import { IUserRecipes } from "../interfaces";
+import { IRecipe } from "../interfaces";
 import { logger } from "../app";
 
 export default class SQSMessage {
@@ -25,7 +25,7 @@ export default class SQSMessage {
             const messageId = message.MessageId;
             const recipeDomain = new Recipe();
             try {
-              await recipeDomain.createRecipe(JSON.parse(message.Body as string) as IUserRecipes);
+              await recipeDomain.createRecipe(JSON.parse(message.Body as string) as IRecipe);
               await deleteMessageById(process.env.recipesQueueName as string, message, 'Create New Recipe');
             } catch (error) {
               logger.error(`Error inserting new recipe with Message ID ${messageId}: with the error: ${error}`);

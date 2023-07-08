@@ -3,8 +3,9 @@ import { DEVICE } from "../utils/constants";
 
 
 export const ImageStyled = styled.img`
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 50%;
 `;
 

@@ -1,10 +1,11 @@
 import axios from "axios";
-import { IUserRecipes } from "../utils/interfaces";
+import { IRecipe } from "../utils/interfaces";
 
 
-export const getAllRecipesFromDB = async (userId: string): Promise<any> => {
+export const getRecipes = async (userId: string): Promise<any> => {
   try {
-    const res = await axios.get(`http://localhost:4000/recipe/getAllRecipesById?userId=${ userId }`);
+    //TODO: change the paganetion logic!
+    const res = await axios.get(`http://localhost:4000/recipe/getRecipes?userId=${ userId }&currentPage=${1}&pageSize=${2}`);
     return res.data;
   } catch (e: any) {
     console.log("error", e)
@@ -12,7 +13,7 @@ export const getAllRecipesFromDB = async (userId: string): Promise<any> => {
 }
 
 
-export const insertNewRecipesToDB = async (recipe: IUserRecipes) => {
+export const insertNewRecipesToDB = async (recipe: IRecipe) => {
   if (recipe) {
     try {
       const res = await axios.post(`http://localhost:4000/recipe/createNewRecipe`, {...recipe});
@@ -46,4 +47,3 @@ export const insertNewImagesToDB = async (image: File) => {
     console.log("Error from server...", e);
   }
 }
-//TODO: add try catch

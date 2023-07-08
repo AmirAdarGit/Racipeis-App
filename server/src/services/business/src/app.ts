@@ -55,6 +55,18 @@ router.post(`${ USER_PATH }/create`, async (req: express.Request, res: express.R
   }
 });
 
+router.post(`${ USER_PATH }/isUserActivate`, async (req: express.Request, res: express.Response) => {
+  try {
+    logger.info("[USER] - API - isUserActivate");
+    const ApiController = new API_Controller()
+    const response = await ApiController.isUserActivate(req, res)
+    res.json(response).status(200)
+  } catch (e: any) {
+    logger.error("Internal Server Error - /update")
+    res.json({error: `Internal Server Error: ${ e.message }`}).status(500);
+  }
+});
+
 router.post(`${ RECIPES_PATH }/createNewRecipe`, async (req: express.Request, res: express.Response) => {
   try {
     logger.info("[USER] - API - createNewRecipe");
@@ -67,14 +79,34 @@ router.post(`${ RECIPES_PATH }/createNewRecipe`, async (req: express.Request, re
   }
 });
 
-router.get(`${ RECIPES_PATH }/getAllRecipesById`, async (req: express.Request, res: express.Response) => {
+router.post(`${ RECIPES_PATH }/incrementInteractionRecipeCount`, async (req: express.Request, res: express.Response) => {
   try {
-    logger.info("[USER] - API - getAllRecipesById");
+    logger.info("[USER] - API - incrementInteractionRecipeCount");
     const apiController = new API_Controller()
-    const response = await apiController.getAllRecipesById(req, res)
+    const response = await apiController.incrementInteractionRecipeCount(req, res)
     res.json(response).status(200)
   } catch (e: any) {
     logger.error("Internal Server Error - /createNewRecipe")
+    res.json({error: `Internal Server Error: ${ e.message }`}).status(500);
+  }
+});
+
+
+
+// TODO: this API should handle all the get recipes from the server:
+// 1) get the most view recipes for the login home page (with pagination) - params of popular
+// 2) get the user private recipes (by pagination)
+// 3) get recipes by tags
+
+
+router.get(`${ RECIPES_PATH }/getRecipes`, async (req: express.Request, res: express.Response) => {
+  try {
+    logger.info("[USER] - API - getRecipes");
+    const apiController = new API_Controller()
+    const response = await apiController.getRecipes(req, res)
+    res.json(response).status(200)
+  } catch (e: any) {
+    logger.error("Internal Server Error - /getRecipes")
     res.json({error: `Internal Server Error: ${ e.message }`}).status(500);
   }
 });

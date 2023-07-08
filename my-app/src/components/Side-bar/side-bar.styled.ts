@@ -23,12 +23,10 @@ export const SideBarStyled = styled.div`
   box-shadow: none;
   background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgb(239, 234, 230);
+  min-height: 50px;
 `;
 
 
-export const ImageUrlStyled = styled.img`
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-`;
+
 
