@@ -131,6 +131,18 @@ router.post('/uploadImage', upload.single('image'), async (req: express.Request,
   }
 });
 
+router.get(`${ RECIPES_PATH }/searchRecipe`, async (req: express.Request, res: express.Response) => {
+  try {
+    logger.info("[USER] - API - searchRecipe");
+    const ApiController = new API_Controller()
+    const response = await ApiController.searchRecipe(req, res);
+    res.json(response).status(200)
+  } catch (e: any) {
+    logger.error("Internal S erver Error - /getUserById")
+    res.json({error: `Internal Server Error: ${ e.message }`}).status(500);
+  }
+});
+
 
 
 

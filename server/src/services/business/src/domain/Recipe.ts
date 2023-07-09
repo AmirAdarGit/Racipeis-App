@@ -20,5 +20,8 @@ export default class Recipe {
   async getPopularPublicRecipesByPagination(currentPage: any, pageSize: any) {
     return await this.recipeDBManager.getPopularPublicRecipesByPagination(currentPage, pageSize);
   }
+  async searchRecipe(searchQuery: any) {
+    return await this.recipeDBManager.searchRecipe(searchQuery);
+  }
 
 }

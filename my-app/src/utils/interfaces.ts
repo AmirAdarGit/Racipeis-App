@@ -14,20 +14,25 @@ export interface MyResponseData {
 }
 
 export interface IRecipe {
-  _id: string,
-  userId: string,
+  _id?: string,
+  userId?: string,
   recipeName: string,
   ingredients: Array<string>,
   procedure: Array<string>,
   notes?: string,
   timeToMake?: string,
   servingsNumber?: string,
-  imagesByUrls?: Array<string>,
   isPrivet?: boolean
+  images?: Array<File>;
+  imagesByUrls?: Array<string>,
 };
+
+
+
 
 export interface LinkBoxProps {
   active: boolean;
   onClick: () => void;
   children: React.ReactNode;
 }
+

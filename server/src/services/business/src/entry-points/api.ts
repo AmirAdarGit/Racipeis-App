@@ -145,5 +145,20 @@ export default class API_Controller {
     }
   }
 
+  async searchRecipe(req: express.Request, res: express.Response) {
+    try {
+      const { searchQuery } = req.query;
+
+      if (!searchQuery) {
+        throw new Error("params are missing");
+      }
+      const recipeDomain = new Recipe();
+      return await recipeDomain.searchRecipe(searchQuery);
+    } catch (error) {
+      console.log("Error from server: ", error);
+      throw new Error(`Error from server: , ${ error }`)
+    }
+  }
+
 
 }

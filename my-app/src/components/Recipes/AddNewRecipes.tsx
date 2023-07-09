@@ -12,23 +12,10 @@ import { ReactComponent as CloseIcon } from "../../assets/closeIcon.svg"
 import { ReactComponent as TrashIcon } from "../../assets/trash.svg"
 import { ReactComponent as UploadIcon } from "../../assets/uploadIcon.svg"
 import Button from "@mui/material/Button";
-
-
-export interface Recipe {
-  recipeName: string;
-  ingredients: Array<string>;
-  procedure: Array<string>;
-  notes: string;
-  timeToMake: string;
-  servingsNumber: string;
-  isPrivet: boolean;
-  images?: Array<File>;
-  imagesByUrls?: Array<string>;
-  userId?: string;
-}
+import { IRecipe } from "../../utils/interfaces";
 
 interface Props {
-  onSave: (recipe: Recipe) => void;
+  onSave: (recipe: IRecipe) => void;
   setShowAddNewRecipeDialog: (showAddNewRecipesComponent: boolean) => void;
 }
 
@@ -44,11 +31,11 @@ export const AddNewRecipesComponent: React.FC<Props> = ({onSave, setShowAddNewRe
   const [servingsNumber, setServingsNumber] = useState<string>('');
   const [isPrivet, setIsPrivet] = useState<boolean>(false); // TODO: for social search for the V2
 
-  const [inputValue, setInputValue] = useState<any>('');
-  const [ingredients, setIngredients] = useState<any>([]);
+  const [inputValue, setInputValue] = useState<string>('');
+  const [ingredients, setIngredients] = useState<string[]>([]);
 
-  const [inputProcedureValue, setInputProcedureValue] = useState<any>('');
-  const [procedure, setProcedure] = useState<any>([]);
+  const [inputProcedureValue, setInputProcedureValue] = useState<string>('');
+  const [procedure, setProcedure] = useState<string[]>([]);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -139,7 +126,7 @@ export const AddNewRecipesComponent: React.FC<Props> = ({onSave, setShowAddNewRe
 
 
   const handleSave = () => {
-    const recipe: Recipe = {
+    const recipe: IRecipe = {
       recipeName,
       ingredients,
       procedure,

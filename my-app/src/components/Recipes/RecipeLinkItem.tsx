@@ -1,9 +1,10 @@
 import React from "react";
 import { ImageStyled, Loader, RecipeLinkItemWrapperStyled, RecipeName } from "../../style/RecipesLinkItem.styled";
 import { useNavigate } from 'react-router-dom';
+import { IRecipe } from "../../utils/interfaces";
 
 interface Props {
-  recipe: any
+  recipe: IRecipe
 }
 
 export const RecipeLinkItem: React.FC<Props> = ({recipe}) => {

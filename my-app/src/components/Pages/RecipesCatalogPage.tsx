@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserProfile } from "../../redux/selectors/user.selector";
-import { Recipe } from "../Recipes/AddNewRecipes";
 import { insertNewRecipesToDB, sendImageByImageToS3 } from "../../functions/recipesDB.Queries";
 import { getRecipesCards } from "../../redux/selectors/recipesCards.selector";
 import { RecipesList } from "../Recipes/RecipesList";
@@ -10,7 +9,6 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Banner from "./Banner";
 import { WrapperCatalog } from "../../style/BannerImage.styled";
-import { useLocation } from "react-router-dom";
 
 interface Props {
 }
@@ -22,14 +20,17 @@ export const RecipesCatalog: React.FC<Props> = () => {
   const recipesCards = useSelector(getRecipesCards);
 
   const [allTheRecipes, setAllTheRecipes] = useState<any>(null)
+  const [searchedRecipes, setSearchedRecipes] = useState<IRecipe[] | null>(null)
+  const [searchQuery, setSearchQuery] = useState('');
+
 
   useEffect(() => {
-    if (recipesCards){
+    if (recipesCards) {
       setAllTheRecipes(recipesCards.userRecipes);
     }
-  },[recipesCards])
+  }, [recipesCards, searchedRecipes])
 
-  const handleSaveRecipe = async (recipe: Recipe) => {
+  const handleSaveRecipe = async (recipe: IRecipe) => {
     let imagesByUrls: Array<string> = []
     if (recipe.images) {
       imagesByUrls = await sendImageByImageToS3(recipe.images);
@@ -49,11 +50,11 @@ export const RecipesCatalog: React.FC<Props> = () => {
     }
   };
 
-
   return (
     <WrapperCatalog>
-      <Banner onSave={ handleSaveRecipe }/>
-      { allTheRecipes && <RecipesList recipes={ allTheRecipes }/> }
+      <Banner onSave={ handleSaveRecipe } setSearchedRecipes={ setSearchedRecipes } searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+      {searchQuery.length === 0 && allTheRecipes && <RecipesList recipes={  allTheRecipes }/>}
+      {searchedRecipes && <RecipesList recipes={ searchedRecipes  }/>}
     </WrapperCatalog>
   )
 }

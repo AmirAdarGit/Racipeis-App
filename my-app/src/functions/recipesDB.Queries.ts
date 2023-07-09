@@ -5,7 +5,7 @@ import { IRecipe } from "../utils/interfaces";
 export const getRecipes = async (userId: string): Promise<any> => {
   try {
     //TODO: change the paganetion logic!
-    const res = await axios.get(`http://localhost:4000/recipe/getRecipes?userId=${ userId }&currentPage=${1}&pageSize=${2}`);
+    const res = await axios.get(`http://localhost:4000/recipe/getRecipes?userId=${ userId }&currentPage=${1}&pageSize=${10}`);
     return res.data;
   } catch (e: any) {
     console.log("error", e)
