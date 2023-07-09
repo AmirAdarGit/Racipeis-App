@@ -147,13 +147,30 @@ export default class API_Controller {
 
   async searchRecipe(req: express.Request, res: express.Response) {
     try {
-      const { searchQuery } = req.query;
-
+      const { searchQuery, isPrivate, userDBId } = req.query;
       if (!searchQuery) {
         throw new Error("params are missing");
       }
+      if (isPrivate && !userDBId) {
+        throw new Error("params are missing");
+      }
       const recipeDomain = new Recipe();
-      return await recipeDomain.searchRecipe(searchQuery);
+      return await recipeDomain.searchRecipe(searchQuery, isPrivate, userDBId);
+    } catch (error) {
+      console.log("Error from server: ", error);
+      throw new Error(`Error from server: , ${ error }`)
+    }
+  }
+
+  async countUserRecipes(req: express.Request, res: express.Response) {
+    try {
+      const { userId } = req.query;
+      if (!userId) {
+        throw new Error("params are missing");
+      }
+
+      const recipeDomain = new Recipe();
+      return await recipeDomain.countUserRecipes(userId);
     } catch (error) {
       console.log("Error from server: ", error);
       throw new Error(`Error from server: , ${ error }`)

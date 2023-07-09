@@ -11,7 +11,7 @@ import {
   RecipeTopRightDataWrapperStyle,
   SeparatorStyled,
   ServingsAndTimeToMakeStyled
-} from "../../style/recipeCard.styled";
+} from "../../style/RecipeCard.styled";
 import { ReactComponent as KnifeForkIcon } from "../../assets/fork-and-knife-in-cross.svg";
 import { ReactComponent as ClockIcon } from "../../assets/clock.svg";
 import axios from "axios";

@@ -12,12 +12,17 @@ export const registerUserAndGetAllRecipes = async (userData: any) => {
       photoURL: userData.photoURL,
       isLogIn: true
     })
-    return { userMetaData: createdUser, isNewUser: true };
+    return { userMetaData: createdUser, totalRecipeCount: 0 ,isNewUser: true };
   }
   // Get all the recipes from the db.
   
-  const allRecipesFromDB = await getRecipes(userMetaData._id)
-  return { userMetaData: userMetaData, allRecipesFromDB: allRecipesFromDB, isNewUser: false }
+  const allRecipesFromDBAndCount = await getRecipes(userMetaData._id)
+  return {
+    userMetaData: userMetaData,
+    allRecipesFromDB: allRecipesFromDBAndCount.recipes,
+    totalRecipeCount :allRecipesFromDBAndCount.totalRecipeCount,
+    isNewUser: false
+  }
 }
 
 export const setNewUserToDB = async (userData: any): Promise<any> => {

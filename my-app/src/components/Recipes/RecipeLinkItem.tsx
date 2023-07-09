@@ -11,19 +11,21 @@ export const RecipeLinkItem: React.FC<Props> = ({recipe}) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/recipePage',{ state: { recipe } })
+    navigate('/recipePage', {state: {recipe}})
   };
-  return (
-    <RecipeLinkItemWrapperStyled onClick={handleClick}>
-      {recipe.imagesByUrls ?
-        <div style={{height: "300px", width: "300px"}}>
-          <ImageStyled src={ recipe.imagesByUrls[0] }></ImageStyled>
+  return (<>
+      { recipe && <RecipeLinkItemWrapperStyled onClick={ handleClick }>
+        { recipe.imagesByUrls ?
+          <div style={ {height: "300px", width: "300px"} }>
+            <ImageStyled src={ recipe.imagesByUrls[0] }></ImageStyled>
           </div> :
-        <Loader/>}
-      <RecipeName>
-        { recipe.recipeName }
-      </RecipeName>
-    </RecipeLinkItemWrapperStyled>
+          <Loader/> }
+          <RecipeName>
+            { recipe.recipeName }
+          </RecipeName>
+      </RecipeLinkItemWrapperStyled> }
+    </>
+
   )
 }
 

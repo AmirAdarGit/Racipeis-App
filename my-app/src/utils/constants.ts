@@ -23,3 +23,5 @@ export enum Pages {
   ABOUT = 'About',
   MY_LINKS = 'My Links',
 }
+
+export const PAGE_SIZE = 2

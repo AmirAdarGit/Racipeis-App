@@ -126,7 +126,7 @@ router.post('/uploadImage', upload.single('image'), async (req: express.Request,
     }
 
   } catch (e: any) {
-    logger.error("Internal Server Error - /createNewRecipe")
+    logger.error("Internal Server Error - /uploadImage")
     res.json({error: `Internal Server Error: ${ e.message }`}).status(500);
   }
 });
@@ -138,7 +138,19 @@ router.get(`${ RECIPES_PATH }/searchRecipe`, async (req: express.Request, res: e
     const response = await ApiController.searchRecipe(req, res);
     res.json(response).status(200)
   } catch (e: any) {
-    logger.error("Internal S erver Error - /getUserById")
+    logger.error("Internal Server Error - /searchRecipe")
+    res.json({error: `Internal Server Error: ${ e.message }`}).status(500);
+  }
+});
+
+router.get(`${ RECIPES_PATH }/countUserRecipes`, async (req: express.Request, res: express.Response) => {
+  try {
+    logger.info("[USER] - API - countUserRecipes");
+    const ApiController = new API_Controller()
+    const response = await ApiController.countUserRecipes(req, res);
+    res.json(response).status(200)
+  } catch (e: any) {
+    logger.error("Internal Server Error - /countUserRecipes")
     res.json({error: `Internal Server Error: ${ e.message }`}).status(500);
   }
 });

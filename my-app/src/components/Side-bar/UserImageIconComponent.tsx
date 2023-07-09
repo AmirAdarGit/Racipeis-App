@@ -6,7 +6,7 @@ import Fade from '@mui/material/Fade';
 import Paper from '@mui/material/Paper';
 import { useSelector } from "react-redux";
 import { getUserProfile } from "../../redux/selectors/user.selector";
-import { UserIconButtonStyled } from "../../style/userImageIcon.styled";
+import { UserIconButtonStyled } from "../../style/UserImageIcon.styled";
 import LogOutComponent from "../Authentication/SignOut";
 
 

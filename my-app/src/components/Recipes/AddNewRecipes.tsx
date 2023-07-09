@@ -147,7 +147,6 @@ export const AddNewRecipesComponent: React.FC<Props> = ({onSave, setShowAddNewRe
       fileInputRef.current.click();
     }
   };
-  console.log(images)
 
   return (
     <div>

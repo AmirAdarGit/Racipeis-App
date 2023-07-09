@@ -40,7 +40,7 @@ export const SignInComponent: React.FC = () => {
                 dispatch({type: 'SIGNUP', payload: returnData.userMetaData})
               } else {
                 dispatch({type: 'LOGIN', payload: returnData.userMetaData})
-                dispatch({type: 'SET_ALL_THE_RECIPES_FROM_DB', payload: returnData.allRecipesFromDB})
+                dispatch({type: 'SET_RECIPES_FROM_DB', payload: {allRecipesFromDB: returnData.allRecipesFromDB, totalRecipeCount: returnData.totalRecipeCount }})
 
               }
             })
@@ -62,7 +62,7 @@ export const SignInComponent: React.FC = () => {
         <source src="https://my-recipes-global-images.s3.amazonaws.com/file.mp4cd6c58d6-cb2b-4edc-ab5b-85d2869b58b1%7D" />
       </VideoElement>
 
-        <ImageTitle>CREATE YOUR OUN <br/>RECIPE`S ONLINE BOOK
+        <ImageTitle>CREATE YOUR OWN <br/>ONLINE RECIPE  BOOK
           <br/>
           <br/>
           <ImageTwoLines/>

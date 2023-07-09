@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserProfile } from "../../redux/selectors/user.selector";
-import { insertNewRecipesToDB, sendImageByImageToS3 } from "../../functions/recipesDB.Queries";
+import {
+  getRecipes,
+  insertNewRecipesToDB,
+  sendImageByImageToS3
+} from "../../functions/recipesDB.Queries";
 import { getRecipesCards } from "../../redux/selectors/recipesCards.selector";
 import { RecipesList } from "../Recipes/RecipesList";
 import { IRecipe } from "../../utils/interfaces";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Banner from "./Banner";
-import { WrapperCatalog } from "../../style/BannerImage.styled";
+import { getSearchPublicRecipe } from "../../redux/selectors/searchPublicRecipes.selector";
+import { ShowMoreButtonStyled, WrapperCatalog } from "../../style/RcipesCatalogPage.styled";
+import Button from "@mui/material/Button";
+import { PAGE_SIZE } from "../../utils/constants";
 
 interface Props {
 }
@@ -16,19 +23,24 @@ interface Props {
 export const RecipesCatalog: React.FC<Props> = () => {
 
   const dispatch = useDispatch();
+
   const userProfile = useSelector(getUserProfile);
   const recipesCards = useSelector(getRecipesCards);
+  const searchPublicRecipesCards = useSelector(getSearchPublicRecipe);
+  const searchedRecipes = searchPublicRecipesCards.publicRecipes
+  const searchText = searchPublicRecipesCards.searchText
+  const totalRecipeCount = recipesCards.totalRecipeCount
+  const currentRecipePage = recipesCards.currentPage
 
   const [allTheRecipes, setAllTheRecipes] = useState<any>(null)
-  const [searchedRecipes, setSearchedRecipes] = useState<IRecipe[] | null>(null)
   const [searchQuery, setSearchQuery] = useState('');
-
 
   useEffect(() => {
     if (recipesCards) {
       setAllTheRecipes(recipesCards.userRecipes);
     }
   }, [recipesCards, searchedRecipes])
+
 
   const handleSaveRecipe = async (recipe: IRecipe) => {
     let imagesByUrls: Array<string> = []
@@ -50,11 +62,25 @@ export const RecipesCatalog: React.FC<Props> = () => {
     }
   };
 
+  const handleShowMoreRecipesByPagination = () => {
+
+    getRecipes(userProfile.userDBID, currentRecipePage + 1, PAGE_SIZE).then((newRecipes) => {
+      console.log("currentRecipePage", currentRecipePage)
+      dispatch({type: 'SET_RECIPES', payload: newRecipes.recipes});
+      dispatch({type: 'INCREMENT_RECIPE_PAGE', payload: currentRecipePage});
+    })
+  }
   return (
     <WrapperCatalog>
-      <Banner onSave={ handleSaveRecipe } setSearchedRecipes={ setSearchedRecipes } searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
-      {searchQuery.length === 0 && allTheRecipes && <RecipesList recipes={  allTheRecipes }/>}
-      {searchedRecipes && <RecipesList recipes={ searchedRecipes  }/>}
+      <Banner onSave={ handleSaveRecipe } searchQuery={ searchQuery } setSearchQuery={ setSearchQuery }/>
+      { searchText.length === 0 && allTheRecipes && <RecipesList recipes={ allTheRecipes }/> }
+      { searchText.length !== 0 && <RecipesList recipes={ searchedRecipes }/> }
+      { allTheRecipes && (recipesCards.userRecipes.length < totalRecipeCount) ?
+        <ShowMoreButtonStyled>
+          <Button onClick={ handleShowMoreRecipesByPagination }>Show
+            more
+          </Button>
+        </ShowMoreButtonStyled> : '' }
     </WrapperCatalog>
   )
 }

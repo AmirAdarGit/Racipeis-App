@@ -10,9 +10,11 @@ export const ImageStyled = styled.img`
 `;
 
 export const RecipeName = styled.div`
+  padding-right: 8px;
   align-self: center;
   padding: 10px;
-  
+  font-family: cursive;
+  font-size: 26px;
 `;
 
 export const Loader = styled.div`
@@ -37,8 +39,8 @@ export const Loader = styled.div`
 export const RecipesListWrapperStyled = styled.div`
   display: flex;
   flex-wrap: wrap;
-  overflow: hidden;
   padding: 0 16px;
+  background-color: #e4f8f4;
 `;
 
 export const RecipeLinkItemWrapperStyled = styled.div`

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LogOutButtonStyle } from "../../style/logOutComponent.styled";
+import { LogOutButtonStyle } from "../../style/LogOutComponent.styled";
 import { useNavigate } from "react-router-dom";
 import { setUserLogOut } from "../../functions/registerDB.Queries";
 import { getUserProfile } from "../../redux/selectors/user.selector";

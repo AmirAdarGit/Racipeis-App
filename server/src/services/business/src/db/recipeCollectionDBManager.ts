@@ -11,9 +11,9 @@ export default class RecipeCollectionDBManager {
   }
 
   async incrementInteractionRecipeCount(recipeId: string) {
-      const documents = await RecipeCollection
-        .findByIdAndUpdate(recipeId, {$inc: {interactionRecipeCount: 1}});
-      return documents;
+    const documents = await RecipeCollection
+      .findByIdAndUpdate(recipeId, {$inc: {interactionRecipeCount: 1}});
+    return documents;
   }
 
   async getUserRecipes(userId: string, currentPage: number, pageSize: number) {
@@ -22,8 +22,11 @@ export default class RecipeCollectionDBManager {
       .skip((currentPage - 1) * pageSize)
       .limit(pageSize);
 
+    const totalRecipeCount = await RecipeCollection.countDocuments({userId: new ObjectId(userId)});
+
+
     logger.info(documents.toString())
-    return documents
+    return {recipes: documents, totalRecipeCount: totalRecipeCount}
   }
 
   async getPopularPublicRecipesByPagination(currentPage: number, pageSize: number) {
@@ -37,15 +40,32 @@ export default class RecipeCollectionDBManager {
     return documents
   }
 
-  async searchRecipe(searchQuery: string) {
-    const documents = await RecipeCollection.find(
-      {
-        recipeName: {$regex: searchQuery, $options: 'i'},
-        isPrivate: false
-      }
-    );
+  async searchRecipe(searchQuery: any, isPrivate?: any, userDBId?: any) {
+    let documents
+    const isPrivateValue = isPrivate === 'true';
+    if (isPrivateValue) {
+      documents = await RecipeCollection.find(
+        {
+          userId: new ObjectId(userDBId),
+          recipeName: {$regex: searchQuery, $options: 'i'},
+        }
+      );
+    } else {
+      documents = await RecipeCollection.find(
+        {
+          recipeName: {$regex: searchQuery, $options: 'i'},
+          isPrivate: false
+        }
+      );
+    }
     logger.info(documents.toString())
     return documents
+  }
+
+  async countUserRecipes(userId: any) {
+    const userRecipeCount = await RecipeCollection.countDocuments({userId: new ObjectId(userId)});
+    logger.info(userRecipeCount.toString())
+    return userRecipeCount
   }
 }
 
