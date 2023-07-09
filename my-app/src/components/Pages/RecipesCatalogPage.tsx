@@ -75,7 +75,7 @@ export const RecipesCatalog: React.FC<Props> = () => {
       <Banner onSave={ handleSaveRecipe } searchQuery={ searchQuery } setSearchQuery={ setSearchQuery }/>
       { searchText.length === 0 && allTheRecipes && <RecipesList recipes={ allTheRecipes }/> }
       { searchText.length !== 0 && <RecipesList recipes={ searchedRecipes }/> }
-      { allTheRecipes && (recipesCards.userRecipes.length < totalRecipeCount) ?
+      { !searchQuery && allTheRecipes &&  (recipesCards.userRecipes.length < totalRecipeCount) ?
         <ShowMoreButtonStyled>
           <Button onClick={ handleShowMoreRecipesByPagination }>Show
             more

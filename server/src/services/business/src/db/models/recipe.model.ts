@@ -36,7 +36,8 @@ const recipeSchema = new mongoose.Schema({
   },
   isPrivate: {
     type: Boolean,
-    required: false
+    required: false,
+    default: false
   },
   interactionRecipeCount: {
     type: Number,

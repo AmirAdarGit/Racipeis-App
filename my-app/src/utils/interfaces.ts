@@ -22,7 +22,7 @@ export interface IRecipe {
   notes?: string,
   timeToMake?: string,
   servingsNumber?: string,
-  isPrivet?: boolean
+  isPrivet: boolean
   images?: Array<File>;
   imagesByUrls?: Array<string>,
 };
