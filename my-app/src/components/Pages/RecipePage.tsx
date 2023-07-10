@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import {
+  GoBackButtonStyled,
   ImageContainer,
   ImageStyled, IngredientsStyled,
   KnifeForkIconStyled,
@@ -31,11 +32,11 @@ export const RecipePage: React.FC = () => {
     notes,
     timeToMake,
     servingsNumber,
-    imagesByUrls
+    imagesByUrls,
   } = state.recipe
-
+  const pageToGoBackWhileClickOnRecipe = state.pageToGoBack
   const handleClick = () => {
-    navigate('/myRecipesCatalog')
+    navigate(pageToGoBackWhileClickOnRecipe)
   };
 
   // increment the interaction with the current recipe for analytics (show the most view first)
@@ -110,8 +111,7 @@ export const RecipePage: React.FC = () => {
       </RecipeCardWrapperStyled>
 
       {/*TODO: add remove icon with logic*/}
-
-      <button onClick={ handleClick }>Go Back</button>
+      <GoBackButtonStyled onClick={ handleClick }>Go Back</GoBackButtonStyled>
     </>
   )
 }

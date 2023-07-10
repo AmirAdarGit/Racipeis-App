@@ -15,7 +15,7 @@ import Banner from "./Banner";
 import { getSearchPublicRecipe } from "../../redux/selectors/searchPublicRecipes.selector";
 import { ShowMoreButtonStyled, WrapperCatalog } from "../../style/RcipesCatalogPage.styled";
 import Button from "@mui/material/Button";
-import { PAGE_SIZE } from "../../utils/constants";
+import { PAGE_SIZE, PagesRoutes } from "../../utils/constants";
 
 interface Props {
 }
@@ -73,8 +73,8 @@ export const RecipesCatalog: React.FC<Props> = () => {
   return (
     <WrapperCatalog>
       <Banner onSave={ handleSaveRecipe } searchQuery={ searchQuery } setSearchQuery={ setSearchQuery }/>
-      { searchText.length === 0 && allTheRecipes && <RecipesList recipes={ allTheRecipes }/> }
-      { searchText.length !== 0 && <RecipesList recipes={ searchedRecipes }/> }
+      { searchText.length === 0 && allTheRecipes && <RecipesList recipes={ allTheRecipes } pageToGoBackWhileClickOnRecipe={PagesRoutes.RECIPES_CATALOG}/> }
+      { searchText.length !== 0 && <RecipesList recipes={ searchedRecipes } pageToGoBackWhileClickOnRecipe={PagesRoutes.RECIPES_CATALOG}/> }
       { !searchQuery && allTheRecipes &&  (recipesCards.userRecipes.length < totalRecipeCount) ?
         <ShowMoreButtonStyled>
           <Button onClick={ handleShowMoreRecipesByPagination }>Show

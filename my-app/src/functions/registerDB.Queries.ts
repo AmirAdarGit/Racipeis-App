@@ -16,11 +16,11 @@ export const registerUserAndGetAllRecipes = async (userData: any) => {
   }
   // Get all the recipes from the db.
   
-  const allRecipesFromDBAndCount = await getRecipes(userMetaData._id)
+  const recipesFromDBAndCount = await getRecipes(userMetaData._id)
   return {
     userMetaData: userMetaData,
-    allRecipesFromDB: allRecipesFromDBAndCount.recipes,
-    totalRecipeCount :allRecipesFromDBAndCount.totalRecipeCount,
+    recipesFromDB: recipesFromDBAndCount.recipes,
+    totalPrivateRecipeCount :recipesFromDBAndCount.totalRecipeCount,
     isNewUser: false
   }
 }

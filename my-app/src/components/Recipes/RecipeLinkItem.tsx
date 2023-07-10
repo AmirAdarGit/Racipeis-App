@@ -5,13 +5,14 @@ import { IRecipe } from "../../utils/interfaces";
 
 interface Props {
   recipe: IRecipe
+  pageToGoBackWhileClickOnRecipe: string
 }
 
-export const RecipeLinkItem: React.FC<Props> = ({recipe}) => {
+export const RecipeLinkItem: React.FC<Props> = ({recipe, pageToGoBackWhileClickOnRecipe}) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/recipePage', {state: {recipe}})
+    navigate('/recipePage', {state: {recipe, pageToGoBack: pageToGoBackWhileClickOnRecipe}})
   };
   return (<>
       { recipe && <RecipeLinkItemWrapperStyled onClick={ handleClick }>

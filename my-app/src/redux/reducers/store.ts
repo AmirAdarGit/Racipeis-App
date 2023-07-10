@@ -5,13 +5,15 @@ import userReducer from "./user.reducer";
 import recipesCardsReducer from "./recipesCards.reducer";
 import storage from 'redux-persist/lib/storage'
 import searchPublicRecipeReducer from "./searchPublicRecipe.reducer";
+import publicRecipesReducer from "./publicRecipes.reducer";
 
 
 
 const rootReducer = combineReducers({
   user: userReducer,
   recipesCards: recipesCardsReducer,
-  searchPublicRecipes: searchPublicRecipeReducer
+  searchPublicRecipes: searchPublicRecipeReducer,
+  publicRecipes: publicRecipesReducer
 });
 
 const persistConfig = {

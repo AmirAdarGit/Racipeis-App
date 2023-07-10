@@ -12,6 +12,7 @@ export const DEVICE = {
 
 export enum PagesRoutes {
   Home = 'Home',
+  LOGIN = '/logIn', //TODO: change LogIn to home in all the app
   RECIPES_CATALOG = '/myRecipesCatalog',
   ABOUT = '/About',
   MY_LINKS = '/myLinks',
@@ -24,4 +25,4 @@ export enum Pages {
   MY_LINKS = 'My Links',
 }
 
-export const PAGE_SIZE = 2
+export const PAGE_SIZE = 6

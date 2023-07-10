@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 
 export const RecipeCardWrapperStyled = styled.div`
   position: relative;
-  margin: 60px 260px 60px 260px;
+  margin: 60px 260px 24px 260px;
   background-color: white;
   border-radius: 8px;
   border: 1px solid rgb(185, 191, 200);
@@ -22,6 +22,7 @@ export const RecipeTopRightDataWrapperStyle = styled.div`
   flex-direction: column;
   justify-content: start;
   flex: 1;
+  overflow: auto;
 `
 
 export const ImageContainer = styled.div`
@@ -85,5 +86,16 @@ export const HeaderWrapperStyled = styled.div`
   justify-content: space-around;
 `;
 
+
+export const GoBackButtonStyled = styled.button`
+  padding: 8px;
+  background-color: rgb(243, 242, 243);
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  :hover {
+    background-color: antiquewhite;
+  }
+`;
 
 

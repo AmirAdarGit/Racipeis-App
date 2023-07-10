@@ -12,8 +12,6 @@ export const RecipesInputsStyled = styled.div`
   max-width: 590px;
   align-self: center;
   border-radius: 8px;
-  padding: 16px;
-  margin: 20px;
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.3);
 ` ;
 
@@ -54,8 +52,13 @@ const fadeAnimation = keyframes`
 `;
 
 export const PopupContent = styled.div`
-  display: flex;
-  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max-content;
+  
+  
 `;
 
 export const HeaderPopup = styled.div`

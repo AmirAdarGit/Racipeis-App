@@ -17,8 +17,8 @@ export default class Recipe {
     return await this.recipeDBManager.getUserRecipes(userId, currentPage, pageSize);
   }
 
-  async getPopularPublicRecipesByPagination(currentPage: any, pageSize: any) {
-    return await this.recipeDBManager.getPopularPublicRecipesByPagination(currentPage, pageSize);
+  async getPopularPublicRecipesByPagination(currentPage: any, pageSize: any, shouldGetTotalRecipesCount?: boolean) {
+    return await this.recipeDBManager.getPopularPublicRecipesByPagination(currentPage, pageSize, shouldGetTotalRecipesCount);
   }
   async searchRecipe(searchQuery: any, isPrivate?: any, userDBId?: any) {
     return await this.recipeDBManager.searchRecipe(searchQuery, isPrivate, userDBId);

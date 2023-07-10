@@ -29,12 +29,18 @@ export default class RecipeCollectionDBManager {
     return {recipes: documents, totalRecipeCount: totalRecipeCount}
   }
 
-  async getPopularPublicRecipesByPagination(currentPage: number, pageSize: number) {
+  async getPopularPublicRecipesByPagination(currentPage: number, pageSize: number, shouldGetTotalRecipesCount?: boolean) {
+
     const documents = await RecipeCollection
       .find({isPrivate: false}) // Only select recipes where isPrivate is not true (false or undefined)
       .sort({interactionRecipeCount: - 1}) // Sort in descending order by interactionRecipeCount
       .skip((currentPage - 1) * pageSize) // Skip documents based on the current page
       .limit(pageSize) // Limit the number of documents per page
+
+    if (shouldGetTotalRecipesCount) {
+      const totalPublicRecipes = await RecipeCollection.countDocuments({isPrivate: false});
+      return {recipes: documents, totalPublicRecipes: totalPublicRecipes}
+    }
 
     logger.info(documents.toString())
     return documents

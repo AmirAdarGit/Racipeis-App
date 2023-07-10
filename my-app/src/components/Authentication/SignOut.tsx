@@ -18,7 +18,8 @@ export const LogOutComponent: React.FC<Props> = () => {
   const signOutWithGoogle = async () => {
     // handleLogout(popupState)
     dispatch({ type: 'LOGOUT' }); // clean the user redux state.
-    dispatch({ type: 'REMOVE_RECIPES_FROM_STATE' }); // clean the recipes redux state.
+    dispatch({ type: 'REMOVE_PRIVATE_RECIPES_FROM_STATE' }); // clean the recipes redux state.
+    dispatch({ type: 'REMOVE_SEARCH_PUBLIC_RECIPES' }); // clean the recipes redux state.
     await setUserLogOut(userProfile.userAuthId)
     navigate('/')
   }

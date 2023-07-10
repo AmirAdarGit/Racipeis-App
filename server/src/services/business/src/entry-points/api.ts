@@ -123,13 +123,13 @@ export default class API_Controller {
 
   async getRecipes(req: express.Request, res: express.Response) {
     try {
-      const { userId, currentPage, pageSize } = req.query;
+      const { userId, currentPage, pageSize, shouldGetTotalRecipesCount } = req.query;
 
       //gat the most popular public recipes
       const recipeDomain = new Recipe();
       let RecipesToReturn;
       if (!userId) {
-        RecipesToReturn = await recipeDomain.getPopularPublicRecipesByPagination(currentPage, pageSize);
+        RecipesToReturn = await recipeDomain.getPopularPublicRecipesByPagination(currentPage, pageSize, Boolean(shouldGetTotalRecipesCount));
 
       } else {
         RecipesToReturn = await recipeDomain.getUserRecipes(userId as string, currentPage, pageSize);

@@ -18,11 +18,11 @@ const initialState = {
 
 function recipesCardsReducer(state = initialState, action: any) {
   switch (action.type) {
-    case 'SET_RECIPES_FROM_DB':
+    case 'SET_PRIVATE_RECIPES_FROM_DB':
       return {
         ...state,
-        userRecipes: action.payload.allRecipesFromDB,
-        totalRecipeCount: action.payload.totalRecipeCount,
+        userRecipes: action.payload.recipesFromDB,
+        totalRecipeCount: action.payload.totalPrivateRecipeCount,
         isFetchRecipes: true,
       };
     case 'SET_RECIPE':
@@ -60,7 +60,7 @@ function recipesCardsReducer(state = initialState, action: any) {
         ...state,
         currentPage: currentPage + 1
       }
-    case 'REMOVE_RECIPES_FROM_STATE':
+    case 'REMOVE_PRIVATE_RECIPES_FROM_STATE':
       return {
         ...initialState
       }
